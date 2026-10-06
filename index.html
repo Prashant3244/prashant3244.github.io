@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArbitragePulse Pro - Real-Time Reseller Margin Sentinel</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --emerald: #10b981;
+      --cyan: #06b6d4;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+    
+    header { padding: 20px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 20px; font-weight: 800; color: var(--emerald); display: flex; align-items: center; gap: 8px; }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero { text-align: center; padding: 60px 0 40px; }
+    .badge { background: rgba(16, 185, 129, 0.15); color: var(--emerald); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-block; margin-bottom: 16px; border: 1px solid rgba(16, 185, 129, 0.3); }
+    h1 { font-size: 40px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+    .hero p { font-size: 18px; color: var(--text-muted); max-width: 650px; margin: 0 auto 30px; }
+    .btn-cta { background: linear-gradient(135deg, var(--emerald), var(--cyan)); color: #042f2e; padding: 14px 32px; border-radius: 8px; font-weight: 800; font-size: 16px; text-decoration: none; display: inline-block; transition: transform 0.2s; }
+    .btn-cta:hover { transform: translateY(-2px); }
+
+    .pricing { padding: 50px 0; }
+    .pricing-card { background: var(--card-bg); border: 2px solid var(--emerald); border-radius: 16px; padding: 40px; max-width: 450px; margin: 0 auto; text-align: center; }
+    .price-val { font-size: 44px; font-weight: 800; color: var(--cyan); margin: 15px 0; }
+    .pricing-features { text-align: left; margin: 25px 0; list-style: none; }
+    .pricing-features li { padding: 8px 0; color: var(--text-muted); font-size: 14px; }
+    .pricing-features li::before { content: "✅ "; }
+
+    .legal-section { padding: 50px 0; border-top: 1px solid var(--border); }
+    .legal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 30px; }
+    .legal-box { background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid var(--border); }
+    .legal-box h3 { color: var(--emerald); font-size: 16px; margin-bottom: 10px; }
+    .legal-box p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="logo">⚡ ArbitragePulse Pro</div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#terms">Terms</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#refunds">Refunds</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="badge">CHROME & EDGE EXTENSION</div>
+      <h1>Real-Time Amazon FBA & Retail Arbitrage Sentinel</h1>
+      <p>Calculate net profit, Amazon referral & FBA fees, break-even prices, and 1-click reverse search across Walmart and eBay in under 50ms.</p>
+      <a href="https://chromewebstore.google.com/detail/arbitragepulse-pro-reseller/cpliibcaagfckgnmmgljkdekimkfkcbe" target="_blank" class="btn-cta">⚡ Add to Chrome (Free)</a>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+      <div class="pricing-card">
+        <div style="color:var(--emerald); font-weight:700; font-size:14px; text-transform:uppercase;">Pro Subscription</div>
+        <div class="price-val">$4.99 <span style="font-size:16px; color:var(--text-muted); font-weight:500;">/ month</span></div>
+        <p style="color:var(--text-muted); font-size:13px;">Everything you need to scale product sourcing across Amazon, Walmart, and eBay.</p>
+        <ul class="pricing-features">
+          <li>Unlimited Daily Calculations (Free has 10/day)</li>
+          <li>1-Click CSV & Google Sheets Deal Export</li>
+          <li>Multi-Marketplace Cross Search (Walmart, eBay, Google)</li>
+          <li>Custom Dimensional Weight FBA Fee Tiers</li>
+          <li>Hassle-free 14-day refund guarantee</li>
+          <li>Cancel anytime with 1-click</li>
+        </ul>
+        <a href="https://chromewebstore.google.com/detail/arbitragepulse-pro-reseller/cpliibcaagfckgnmmgljkdekimkfkcbe" target="_blank" class="btn-cta" style="width:100%; text-align:center;">Get Started</a>
+      </div>
+    </section>
+
+    <!-- Legal & Compliance Policies (Required by Paddle) -->
+    <section class="legal-section" id="legal">
+      <h2 style="text-align: center; font-size: 24px; margin-bottom: 10px;">Terms & Compliance Policies</h2>
+      <p style="text-align: center; color: var(--text-muted); font-size: 14px;">Paddle Merchant of Record verification & customer protection guarantees.</p>
+
+      <div class="legal-grid">
+        <!-- Privacy Policy -->
+        <div class="legal-box" id="privacy">
+          <h3>🔒 Privacy Policy</h3>
+          <p>ArbitragePulse Pro runs locally in your browser. We never collect, track, or sell your personal browsing history, Amazon account credentials, or search records. All calculations happen client-side.</p>
+        </div>
+
+        <!-- Terms of Service -->
+        <div class="legal-box" id="terms">
+          <h3>📜 Terms of Service</h3>
+          <p>ArbitragePulse Pro provides product analysis, FBA fee calculation, and profit estimation tools for retail arbitrage sellers. Subscriptions are billed monthly at $4.99/mo through Paddle and can be cancelled at any time without penalty.</p>
+        </div>
+
+        <!-- Refund Policy -->
+        <div class="legal-box" id="refunds">
+          <h3>💰 14-Day Refund Policy</h3>
+          <p>We provide a 14-day, 100% money-back guarantee. If you are not completely satisfied, contact us at <strong style="color:#fff;">prashant.bodake1@gmail.com</strong> with your order receipt for a prompt, full refund.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 ArbitragePulse Pro. Built for sellers, by sellers.</p>
+      <p style="margin-top: 6px;">Support Contact: <a href="mailto:prashant.bodake1@gmail.com" style="color:var(--emerald);">prashant.bodake1@gmail.com</a></p>
+    </footer>
+  </div>
+
+</body>
+</html>
