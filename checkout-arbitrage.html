@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArbitragePulse Pro - Dedicated Checkout & Activation</title>
+  <meta name="description" content="Secure Paddle Checkout for ArbitragePulse Pro. Real-time Amazon FBA & retail arbitrage margin sentinel.">
+  <!-- Paddle.js v2 CDN -->
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --emerald: #10b981;
+      --emerald-dark: #042f2e;
+      --cyan: #06b6d4;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+    .container { max-width: 760px; margin: 0 auto; padding: 20px; width: 100%; flex: 1; }
+    
+    /* Top Rating Banner */
+    .top-review-banner {
+      background: linear-gradient(90deg, #1e293b, #0f172a);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.4);
+      padding: 8px 16px;
+      text-align: center;
+      font-size: 13px;
+    }
+    .top-review-banner a {
+      color: #fbbf24;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .top-review-banner a:hover {
+      text-decoration: underline;
+    }
+
+    header { padding: 20px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 20px; font-weight: 800; color: var(--emerald); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; margin-left: 20px; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero { text-align: center; padding: 36px 0 24px; }
+    .badge { background: rgba(16, 185, 129, 0.15); color: var(--emerald); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-block; margin-bottom: 12px; border: 1px solid rgba(16, 185, 129, 0.3); }
+    h1 { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+    .hero p { font-size: 15px; color: var(--text-muted); max-width: 580px; margin: 0 auto; }
+
+    /* Success State */
+    #success-box { display: none; background: rgba(16, 185, 129, 0.1); border: 2px solid var(--emerald); border-radius: 12px; padding: 25px; margin: 20px auto 30px; text-align: center; }
+    #success-box h2 { color: var(--emerald); font-size: 22px; margin-bottom: 8px; }
+    .order-id-display { font-family: monospace; font-size: 18px; background: #000; padding: 12px 16px; border-radius: 6px; border: 1px dashed var(--emerald); color: var(--cyan); margin: 15px 0; word-break: break-all; }
+
+    /* Single Dedicated Plan Card */
+    .checkout-card { background: var(--card-bg); border: 2px solid var(--emerald); border-radius: 16px; padding: 36px 30px; margin: 10px auto; max-width: 540px; box-shadow: 0 10px 40px rgba(16, 185, 129, 0.08); position: relative; }
+    .plan-badge { position: absolute; top: -13px; right: 24px; background: var(--emerald); color: var(--emerald-dark); font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .plan-title { font-size: 24px; font-weight: 800; margin-bottom: 6px; color: #fff; }
+    .plan-price { font-size: 44px; font-weight: 800; color: var(--cyan); margin: 12px 0 6px; }
+    .plan-price span { font-size: 16px; color: var(--text-muted); font-weight: 500; }
+    .plan-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 22px; line-height: 1.5; }
+    .plan-features { list-style: none; margin-bottom: 28px; }
+    .plan-features li { padding: 8px 0; font-size: 14px; color: #e2e8f0; display: flex; align-items: center; gap: 8px; }
+    .plan-features li::before { content: "✓"; color: var(--emerald); font-weight: 900; }
+
+    .btn-checkout { background: linear-gradient(135deg, var(--emerald), var(--cyan)); color: var(--emerald-dark); padding: 16px 24px; border-radius: 8px; font-weight: 800; font-size: 16px; text-decoration: none; border: none; cursor: pointer; text-align: center; width: 100%; transition: opacity 0.2s, transform 0.2s; display: block; }
+    .btn-checkout:hover { opacity: 0.95; transform: translateY(-1px); }
+
+    .btn-fallback { display: block; text-align: center; margin-top: 14px; font-size: 12px; color: var(--text-muted); text-decoration: underline; background: none; border: none; cursor: pointer; width: 100%; }
+    .btn-fallback:hover { color: var(--emerald); }
+
+    /* Trust & Policies */
+    .trust-footer { margin-top: 40px; padding: 22px; background: rgba(17, 24, 39, 0.6); border-radius: 12px; border: 1px solid var(--border); text-align: center; font-size: 13px; color: var(--text-muted); }
+    .trust-badges { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 10px; font-weight: 600; color: var(--text); font-size: 13px; }
+    
+    footer { padding: 30px 0; text-align: center; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+  <!-- Top 5-Star Review Banner -->
+  <div class="top-review-banner">
+    <a href="https://chromewebstore.google.com/detail/arbitragepulse-pro-resell/cpliibcaagfckgnmmgljkdekimkfkcbe/reviews" target="_blank" rel="noopener">
+      ⭐ ⭐ ⭐ ⭐ ⭐ 4.9/5 Rating on Chrome Web Store — Click to Read Verified Reviews ↗
+    </a>
+  </div>
+
+  <div class="container">
+    <header>
+      <a href="index.html" class="logo">⚡ ArbitragePulse Pro</a>
+      <div class="nav-links">
+        <a href="index.html">← Back to Overview</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="https://chromewebstore.google.com/detail/arbitragepulse-pro-resell/cpliibcaagfckgnmmgljkdekimkfkcbe" target="_blank">Chrome Store ↗</a>
+        <a href="mailto:prashant.bodake1@gmail.com">Support</a>
+      </div>
+    </header>
+
+    <div class="hero">
+      <div class="badge">SECURE PADDLE CHECKOUT</div>
+      <h1>ArbitragePulse Pro Subscription</h1>
+      <p>Instant license activation, global payment methods (Cards, PayPal, UPI, Apple/Google Pay), and 14-day refund guarantee.</p>
+    </div>
+
+    <!-- Order Completed Banner -->
+    <div id="success-box">
+      <h2>🎉 Payment Confirmed!</h2>
+      <p style="color:var(--text-muted); font-size:14px;">Your ArbitragePulse Pro subscription is active. Copy your Paddle Order / Transaction ID below:</p>
+      <div class="order-id-display" id="order-id-text">Loading ID...</div>
+      <p style="font-size:13px; color:var(--text-muted); line-height:1.5;">
+        👉 Open your ArbitragePulse Chrome Extension popup ➡️ click the <strong>Pro Plan</strong> tab ➡️ paste into <strong>"Activate with Order ID"</strong> and click <strong>Activate</strong>!
+      </p>
+    </div>
+
+    <!-- Single Dedicated Plan Card: ArbitragePulse Pro -->
+    <div class="checkout-card" id="card-arbitrage">
+      <div class="plan-badge">RESELLER PRO</div>
+      <div class="plan-title">ArbitragePulse Pro</div>
+      <div class="plan-desc">The high-speed margin sentinel for Amazon FBA, retail arbitrage, and eBay sellers.</div>
+      <div class="plan-price">$4.99 <span>/ month</span></div>
+      
+      <ul class="plan-features">
+        <li>Unlimited daily calculations (Free tier has 10/day)</li>
+        <li>1-Click CSV & Google Sheets deal spreadsheet export</li>
+        <li>Multi-marketplace reverse sourcing (Walmart, eBay, Google)</li>
+        <li>Custom dimensional weight FBA fee tiers</li>
+        <li>Real-time 50ms margin HUD on Amazon product pages</li>
+        <li>14-day money-back guarantee with 1-click cancellation</li>
+      </ul>
+
+      <button id="btn-pay-paddle" class="btn-checkout" onclick="startPaddleCheckout()">
+        ⚡ Subscribe to ArbitragePulse ($4.99/mo)
+      </button>
+
+      <button id="btn-retry" class="btn-fallback" onclick="startPaddleCheckout()">
+        Trouble opening checkout? Click here to retry
+      </button>
+    </div>
+
+    <!-- Trust & Guarantee -->
+    <div class="trust-footer">
+      <div class="trust-badges">
+        <span>🔒 256-bit SSL Encryption</span>
+        <span>🛡️ Merchant of Record: Paddle.com</span>
+        <span>💰 14-Day Money-Back Guarantee</span>
+        <span>⚡ Instant Activation</span>
+      </div>
+      <p>Payments are securely processed by Paddle.com Market Ltd (UK). You can cancel anytime without questions.</p>
+    </div>
+
+    <footer>
+      <p>© 2026 ArbitragePulse Pro. Direct Support: <a href="mailto:prashant.bodake1@gmail.com" style="color:var(--emerald);">prashant.bodake1@gmail.com</a></p>
+    </footer>
+  </div>
+
+  <script>
+    // Live Paddle Client-Side Token & Arbitrage Price ID
+    const PADDLE_TOKEN = 'live_828ae5ae41898b49618cac77f4e';
+    const ARBITRAGE_PRICE_ID = 'pri_01m48qe0sqbnnn36kwyrdx10xx';
+
+    let paddleInitialized = false;
+
+    // Initialize Paddle.js v2
+    function setupPaddle() {
+      if (typeof Paddle !== 'undefined' && !paddleInitialized) {
+        try {
+          Paddle.Initialize({
+            token: PADDLE_TOKEN,
+            eventCallback: function(event) {
+              console.log('[Paddle Event]', event);
+              if (event && (event.name === 'checkout.completed' || event.name === 'checkout.payment_successful')) {
+                const data = event.data || {};
+                const orderId = data.transaction_id || data.id || 'Active-' + Date.now();
+                showOrderSuccess(orderId);
+              }
+            }
+          });
+          paddleInitialized = true;
+        } catch (err) {
+          console.warn('Paddle initialization notice:', err);
+        }
+      }
+    }
+
+    function startPaddleCheckout() {
+      setupPaddle();
+      if (typeof Paddle === 'undefined') {
+        alert('Paddle payment engine is still loading. Please check your internet connection or try again in a moment.');
+        return;
+      }
+      try {
+        Paddle.Checkout.open({
+          items: [{ priceId: ARBITRAGE_PRICE_ID, quantity: 1 }]
+        });
+      } catch (err) {
+        console.error('Paddle open error:', err);
+        alert('Error launching checkout: ' + err.message);
+      }
+    }
+
+    function showOrderSuccess(orderId) {
+      const box = document.getElementById('success-box');
+      const text = document.getElementById('order-id-text');
+      if (box && text) {
+        text.innerText = orderId;
+        box.style.display = 'block';
+        box.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Auto-init on load
+    window.addEventListener('DOMContentLoaded', () => {
+      setupPaddle();
+      // Auto-open checkout after brief pause for smooth user experience
+      setTimeout(() => {
+        setupPaddle();
+      }, 500);
+    });
+  </script>
+</body>
+</html>
