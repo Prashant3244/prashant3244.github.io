@@ -113,7 +113,10 @@
     <div id="success-box">
       <h2>🎉 Payment Confirmed!</h2>
       <p style="color:var(--text-muted); font-size:14px;">Your ApplyPulse AI Pro subscription is active. Copy your Paddle Order / Transaction ID below:</p>
-      <div class="order-id-display" id="order-id-text">Loading ID...</div>
+      <div style="display: flex; gap: 8px; justify-content: center; align-items: center; margin: 15px 0;">
+        <div class="order-id-display" id="order-id-text" style="margin: 0; flex: 1;">Loading ID...</div>
+        <button id="btn-copy-order-id" onclick="copyOrderId()" style="background: var(--indigo); color: #fff; border: none; padding: 12px 18px; border-radius: 6px; font-weight: 700; font-size: 14px; cursor: pointer;">📋 Copy ID</button>
+      </div>
       <p style="font-size:13px; color:var(--text-muted); line-height:1.5;">
         👉 Open your ApplyPulse AI Chrome Extension popup ➡️ click the <strong>Pro Upgrade</strong> section ➡️ paste into <strong>"Enter Order ID"</strong> and click <strong>Activate</strong>!
       </p>
@@ -212,6 +215,18 @@
         text.innerText = orderId;
         box.style.display = 'block';
         box.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function copyOrderId() {
+      const text = document.getElementById('order-id-text')?.innerText || '';
+      if (text && text !== 'Loading ID...') {
+        navigator.clipboard.writeText(text);
+        const btn = document.getElementById('btn-copy-order-id');
+        if (btn) {
+          btn.innerText = '✅ Copied!';
+          setTimeout(() => { btn.innerText = '📋 Copy ID'; }, 2000);
+        }
       }
     }
 
