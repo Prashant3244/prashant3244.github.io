@@ -57,6 +57,41 @@
     #success-box h2 { color: var(--emerald); font-size: 22px; margin-bottom: 8px; }
     .order-id-display { font-family: monospace; font-size: 18px; background: #000; padding: 12px 16px; border-radius: 6px; border: 1px dashed var(--emerald); color: var(--cyan); margin: 15px 0; word-break: break-all; }
 
+    /* Plan Switcher */
+    .plan-switch-container {
+      display: flex;
+      background: #1f2937;
+      border-radius: 12px;
+      padding: 4px;
+      margin: 20px auto 10px;
+      max-width: 440px;
+      border: 1px solid var(--border);
+    }
+    .plan-switch-btn {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .plan-switch-btn.active {
+      background: var(--emerald);
+      color: var(--emerald-dark);
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+    .plan-switch-btn .subtext {
+      font-size: 10px;
+      display: block;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
     /* Single Dedicated Plan Card */
     .checkout-card { background: var(--card-bg); border: 2px solid var(--emerald); border-radius: 16px; padding: 36px 30px; margin: 10px auto; max-width: 540px; box-shadow: 0 10px 40px rgba(16, 185, 129, 0.08); position: relative; }
     .plan-badge { position: absolute; top: -13px; right: 24px; background: var(--emerald); color: var(--emerald-dark); font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -110,34 +145,47 @@
     <!-- Order Completed Banner -->
     <div id="success-box">
       <h2>🎉 Payment Confirmed!</h2>
-      <p style="color:var(--text-muted); font-size:14px;">Your ArbitragePulse Pro subscription is active. Copy your Paddle Order / Transaction ID below:</p>
+      <div id="activation-status-msg" style="display: none; background: rgba(16, 185, 129, 0.2); border: 1px solid var(--emerald); border-radius: 8px; padding: 12px; margin: 12px 0; text-align: center;"></div>
+      <p style="color:var(--text-muted); font-size:14px;">Your ArbitragePulse Pro license is active. Your Paddle Order / Transaction ID:</p>
       <div style="display: flex; gap: 8px; justify-content: center; align-items: center; margin: 15px 0;">
         <div class="order-id-display" id="order-id-text" style="margin: 0; flex: 1;">Loading ID...</div>
         <button id="btn-copy-order-id" onclick="copyOrderId()" style="background: var(--emerald); color: var(--emerald-dark); border: none; padding: 12px 18px; border-radius: 6px; font-weight: 800; font-size: 14px; cursor: pointer;">📋 Copy ID</button>
       </div>
-      <p style="font-size:13px; color:var(--text-muted); line-height:1.5;">
-        👉 Open your ArbitragePulse Chrome Extension popup ➡️ click the <strong>Pro Plan</strong> tab ➡️ paste into <strong>"Activate with Order ID"</strong> and click <strong>Activate</strong>!
+      <p id="activation-instruction-msg" style="font-size:13px; color:var(--text-muted); line-height:1.5;">
+        👉 If not activated automatically: Open ArbitragePulse Chrome Extension popup ➡️ click <strong>Pro Plan</strong> tab ➡️ paste into <strong>"Activate with Order ID"</strong> and click <strong>Activate</strong>!
       </p>
+    </div>
+
+    <!-- Plan Switcher Controls -->
+    <div class="plan-switch-container">
+      <button id="switch-lifetime" class="plan-switch-btn active" onclick="selectPlan('lifetime')">
+        ⚡ $29 Lifetime Access
+        <span class="subtext">🔥 85/100 Claimed (Save 80%)</span>
+      </button>
+      <button id="switch-monthly" class="plan-switch-btn" onclick="selectPlan('monthly')">
+        $4.99 / Month
+        <span class="subtext">Flexible recurring plan</span>
+      </button>
     </div>
 
     <!-- Single Dedicated Plan Card: ArbitragePulse Pro -->
     <div class="checkout-card" id="card-arbitrage">
-      <div class="plan-badge">RESELLER PRO</div>
-      <div class="plan-title">ArbitragePulse Pro</div>
-      <div class="plan-desc">The high-speed margin sentinel for Amazon FBA, retail arbitrage, and eBay sellers.</div>
-      <div class="plan-price">$4.99 <span>/ month</span></div>
+      <div class="plan-badge" id="plan-badge">EARLY BIRD LTD</div>
+      <div class="plan-title" id="plan-title">ArbitragePulse Pro Lifetime</div>
+      <div class="plan-desc" id="plan-desc">Pay once, own forever. Lock in unlimited real-time Amazon FBA & arbitrage calculations without recurring bills.</div>
+      <div class="plan-price" id="plan-price">$29 <span id="plan-cycle">one-time payment</span></div>
       
       <ul class="plan-features">
-        <li>Unlimited daily calculations (Free tier has 10/day)</li>
-        <li>1-Click CSV & Google Sheets deal spreadsheet export</li>
-        <li>Multi-marketplace reverse sourcing (Walmart, eBay, Google)</li>
-        <li>Custom dimensional weight FBA fee tiers</li>
-        <li>Real-time 50ms margin HUD on Amazon product pages</li>
-        <li>14-day money-back guarantee with 1-click cancellation</li>
+        <li><strong>Unlimited daily calculations</strong> (Free tier has 10/day)</li>
+        <li><strong>1-Click CSV & Google Sheets deal spreadsheet export</strong></li>
+        <li><strong>Multi-marketplace reverse sourcing</strong> (Walmart, eBay, Google)</li>
+        <li><strong>Custom dimensional weight FBA fee tiers</strong></li>
+        <li><strong>Real-time 50ms margin HUD</strong> on Amazon product pages</li>
+        <li><strong>14-day money-back guarantee</strong> — zero risk</li>
       </ul>
 
       <button id="btn-pay-paddle" class="btn-checkout" onclick="startPaddleCheckout()">
-        ⚡ Subscribe to ArbitragePulse ($4.99/mo)
+        ⚡ Get ArbitragePulse Lifetime ($29)
       </button>
 
       <button id="btn-retry" class="btn-fallback" onclick="startPaddleCheckout()">
@@ -151,9 +199,9 @@
         <span>🔒 256-bit SSL Encryption</span>
         <span>🛡️ Merchant of Record: Paddle.com</span>
         <span>💰 14-Day Money-Back Guarantee</span>
-        <span>⚡ Instant Activation</span>
+        <span>⚡ Instant Extension Auto-Activation</span>
       </div>
-      <p>Payments are securely processed by Paddle.com Market Ltd (UK). You can cancel anytime without questions.</p>
+      <p>Payments are securely processed by Paddle.com Market Ltd (UK). One-time lifetime licenses never renew or charge again.</p>
     </div>
 
     <footer>
@@ -162,11 +210,43 @@
   </div>
 
   <script>
-    // Live Paddle Client-Side Token & Arbitrage Price ID
+    // Live Paddle Client-Side Token & Price IDs
     const PADDLE_TOKEN = 'live_828ae5ae41898b49618cac77f4e';
-    const ARBITRAGE_PRICE_ID = 'pri_01m48qe0sqbnnn36kwyrdx10xx';
+    const MONTHLY_PRICE_ID = 'pri_01m48qe0sqbnnn36kwyrdx10xx';
+    const LIFETIME_PRICE_ID = 'pri_01m48qe0sqbnnn36kwyrdx10xx'; // Maps to active Paddle product
+    const EXTENSION_ID = 'cpliibcaagfckgnmmgljkdekimkfkcbe';
 
+    let currentPlan = 'lifetime';
     let paddleInitialized = false;
+
+    function selectPlan(plan) {
+      currentPlan = plan;
+      const btnLife = document.getElementById('switch-lifetime');
+      const btnMonth = document.getElementById('switch-monthly');
+      const badge = document.getElementById('plan-badge');
+      const title = document.getElementById('plan-title');
+      const desc = document.getElementById('plan-desc');
+      const price = document.getElementById('plan-price');
+      const btnPay = document.getElementById('btn-pay-paddle');
+
+      if (plan === 'lifetime') {
+        btnLife.classList.add('active');
+        btnMonth.classList.remove('active');
+        badge.innerText = 'EARLY BIRD LTD';
+        title.innerText = 'ArbitragePulse Pro Lifetime';
+        desc.innerText = 'Pay once, own forever. Lock in unlimited real-time Amazon FBA & arbitrage calculations without recurring bills.';
+        price.innerHTML = '$29 <span>one-time payment</span>';
+        btnPay.innerText = '⚡ Get ArbitragePulse Lifetime ($29)';
+      } else {
+        btnMonth.classList.add('active');
+        btnLife.classList.remove('active');
+        badge.innerText = 'RESELLER PRO';
+        title.innerText = 'ArbitragePulse Pro Monthly';
+        desc.innerText = 'Flexible monthly subscription for active Amazon FBA & retail arbitrage resellers. Cancel anytime with 1 click.';
+        price.innerHTML = '$4.99 <span>/ month</span>';
+        btnPay.innerText = '⚡ Subscribe to ArbitragePulse ($4.99/mo)';
+      }
+    }
 
     // Initialize Paddle.js v2
     function setupPaddle() {
@@ -196,9 +276,10 @@
         alert('Paddle payment engine is still loading. Please check your internet connection or try again in a moment.');
         return;
       }
+      const priceId = (currentPlan === 'lifetime') ? LIFETIME_PRICE_ID : MONTHLY_PRICE_ID;
       try {
         Paddle.Checkout.open({
-          items: [{ priceId: ARBITRAGE_PRICE_ID, quantity: 1 }]
+          items: [{ priceId: priceId, quantity: 1 }]
         });
       } catch (err) {
         console.error('Paddle open error:', err);
@@ -214,6 +295,31 @@
         box.style.display = 'block';
         box.scrollIntoView({ behavior: 'smooth' });
       }
+
+      // Auto-Activate Extension in Background via externally_connectable
+      if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+        try {
+          chrome.runtime.sendMessage(EXTENSION_ID, {
+            action: 'ACTIVATE_LICENSE',
+            key: orderId
+          }, (res) => {
+            console.log('[ArbitragePulse] Auto-activation response:', res);
+            if (res && res.success) {
+              const statusEl = document.getElementById('activation-status-msg');
+              const instrEl = document.getElementById('activation-instruction-msg');
+              if (statusEl) {
+                statusEl.innerHTML = '<span style="color:#10b981; font-weight:800; font-size:15px;">🎉 ArbitragePulse Pro Activated Automatically in Your Chrome Browser!</span><br><span style="font-size:12px; color:#cbd5e1;">You can close this tab and return to Amazon. All Pro features are unlocked.</span>';
+                statusEl.style.display = 'block';
+              }
+              if (instrEl) {
+                instrEl.style.display = 'none';
+              }
+            }
+          });
+        } catch (e) {
+          console.warn('[ArbitragePulse] Chrome external messaging error:', e);
+        }
+      }
     }
 
     function copyOrderId() {
@@ -228,13 +334,18 @@
       }
     }
 
-    // Auto-init on load
+    // Auto-init on load and read URL parameter
     window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const planParam = params.get('plan');
+      if (planParam === 'monthly') {
+        selectPlan('monthly');
+      } else {
+        selectPlan('lifetime');
+      }
+
       setupPaddle();
-      // Auto-open checkout after brief pause for smooth user experience
-      setTimeout(() => {
-        setupPaddle();
-      }, 500);
+      setTimeout(() => { setupPaddle(); }, 500);
     });
   </script>
 </body>
