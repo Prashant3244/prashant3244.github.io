@@ -70,6 +70,30 @@
     .plan-features li { padding: 8px 0; font-size: 14px; color: #e2e8f0; display: flex; align-items: center; gap: 8px; }
     .plan-features li::before { content: "✓"; color: var(--emerald); font-weight: 900; }
 
+    /* Plan Switcher */
+    .plan-switch-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .plan-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .plan-btn.active {
+      background: #1e1b4b;
+      border-color: var(--indigo);
+      color: #fff;
+    }
+
     .btn-checkout { background: linear-gradient(135deg, var(--indigo), var(--cyan)); color: #fff; padding: 16px 24px; border-radius: 8px; font-weight: 800; font-size: 16px; text-decoration: none; border: none; cursor: pointer; text-align: center; width: 100%; transition: opacity 0.2s, transform 0.2s; display: block; }
     .btn-checkout:hover { opacity: 0.95; transform: translateY(-1px); }
 
@@ -123,12 +147,18 @@
       </p>
     </div>
 
+    <!-- Plan Switcher -->
+    <div class="plan-switch-container">
+      <button type="button" class="plan-btn active" id="btn-plan-lifetime" onclick="selectPlan('lifetime')">💎 Early Bird Lifetime ($9)</button>
+      <button type="button" class="plan-btn" id="btn-plan-monthly" onclick="selectPlan('monthly')">🔄 Monthly Plan ($4.99/mo)</button>
+    </div>
+
     <!-- Single Dedicated Plan Card: ApplyPulse AI Pro -->
     <div class="checkout-card" id="card-applypulse">
-      <div class="plan-badge">JOB SEARCH COPILOT</div>
-      <div class="plan-title">ApplyPulse AI Pro</div>
-      <div class="plan-desc">For job seekers applying across Workday, Greenhouse, Lever, Ashby, and ATS portals.</div>
-      <div class="plan-price">$4.99 <span>/ month</span></div>
+      <div class="plan-badge" id="plan-badge">EARLY BIRD LTD</div>
+      <div class="plan-title" id="plan-title">ApplyPulse AI Pro Lifetime</div>
+      <div class="plan-desc" id="plan-desc">Pay once, own forever. Lock in unlimited 1-click ATS applications & AI screening copilot without recurring bills.</div>
+      <div class="plan-price" id="plan-price">$9 <span>one-time payment</span></div>
       
       <ul class="plan-features">
         <li>Unlimited 1-click ATS autofill submissions across Workday, Greenhouse & Lever</li>
@@ -141,7 +171,7 @@
       </ul>
 
       <button id="btn-pay-paddle" class="btn-checkout" onclick="startPaddleCheckout()">
-        🚀 Subscribe to ApplyPulse AI ($4.99/mo)
+        ⚡ Get ApplyPulse AI Lifetime ($9)
       </button>
 
       <button id="btn-retry" class="btn-fallback" onclick="startPaddleCheckout()">
@@ -166,13 +196,44 @@
   </div>
 
   <script>
-    // Live Paddle Client-Side Token & ApplyPulse Price ID
+    // Live Paddle Client-Side Token & ApplyPulse Price IDs
     const PADDLE_TOKEN = 'live_828ae5ae41898b49618cac77f4e';
-    const APPLYPULSE_PRICE_ID = 'pri_01m48qnk81hv9t596abbd3zaqt';
+    const MONTHLY_PRICE_ID = 'pri_01m48qnk81hv9t596abbd3zaqt';
+    const LIFETIME_PRICE_ID = 'pri_01m5md4skhn8vmpmsfb50d0h2g';
     const EXTENSION_ID = 'bfbfckbnaneddgboaakjmnncallngbcp';
     const VERIFICATION_ENDPOINT = 'https://73pdnyhiz4jymx3lonevxxvmdq0cnmtc.lambda-url.us-east-1.on.aws/v1/entitlement/verify';
 
+    let currentPlan = 'lifetime';
     let paddleInitialized = false;
+
+    function selectPlan(plan) {
+      currentPlan = plan;
+      const btnLife = document.getElementById('btn-plan-lifetime');
+      const btnMonth = document.getElementById('btn-plan-monthly');
+      const badge = document.getElementById('plan-badge');
+      const title = document.getElementById('plan-title');
+      const desc = document.getElementById('plan-desc');
+      const price = document.getElementById('plan-price');
+      const btnPay = document.getElementById('btn-pay-paddle');
+
+      if (plan === 'lifetime') {
+        btnLife.classList.add('active');
+        btnMonth.classList.remove('active');
+        badge.innerText = 'EARLY BIRD LTD';
+        title.innerText = 'ApplyPulse AI Pro Lifetime';
+        desc.innerText = 'Pay once, own forever. Lock in unlimited 1-click ATS applications & AI screening copilot without recurring bills.';
+        price.innerHTML = '$9 <span>one-time payment</span>';
+        btnPay.innerText = '⚡ Get ApplyPulse AI Lifetime ($9)';
+      } else {
+        btnMonth.classList.add('active');
+        btnLife.classList.remove('active');
+        badge.innerText = 'JOB SEARCH COPILOT';
+        title.innerText = 'ApplyPulse AI Pro Monthly';
+        desc.innerText = 'Flexible monthly subscription for active job seekers applying across Workday, Greenhouse & Lever. Cancel anytime with 1 click.';
+        price.innerHTML = '$4.99 <span>/ month</span>';
+        btnPay.innerText = '🚀 Subscribe to ApplyPulse AI ($4.99/mo)';
+      }
+    }
 
     // Initialize Paddle.js v2
     function setupPaddle() {
@@ -202,9 +263,10 @@
         alert('Paddle payment engine is still loading. Please check your internet connection or try again in a moment.');
         return;
       }
+      const priceId = (currentPlan === 'lifetime') ? LIFETIME_PRICE_ID : MONTHLY_PRICE_ID;
       try {
         Paddle.Checkout.open({
-          items: [{ priceId: APPLYPULSE_PRICE_ID, quantity: 1 }]
+          items: [{ priceId: priceId, quantity: 1 }]
         });
       } catch (err) {
         console.error('Paddle open error:', err);
@@ -272,8 +334,15 @@
       }
     }
 
-    // Auto-init on load (Zero automatic modal popups)
+    // Auto-init on load and read URL parameter (Zero automatic modal popups)
     window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const planParam = params.get('plan');
+      if (planParam === 'monthly') {
+        selectPlan('monthly');
+      } else {
+        selectPlan('lifetime');
+      }
       setupPaddle();
     });
   </script>
