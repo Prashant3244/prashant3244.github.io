@@ -213,65 +213,62 @@
 
     <!-- SECTION 2 -->
     <div class="card">
-      <h2>2. What We Do NOT Collect</h2>
-      <p>MapsPulse does not access, collect, track, or transmit any user personal data or website content:</p>
+      <h2>2. Categories of Information Handled</h2>
+      <p>MapsPulse handles only the user-provided contact and pipeline records you explicitly enter or import:</p>
       <ul>
-        <li><strong>No Third-Party Website Scraping:</strong> MapsPulse contains zero content scripts and does not read, copy, or monitor any web pages or search engines.</li>
-        <li><strong>No Personal Identifiers:</strong> We do not collect your name, email address, home address, or phone number.</li>
-        <li><strong>No Google Account Credentials:</strong> We do not access or store your Google login, passwords, session tokens, or authentication cookies.</li>
-        <li><strong>No Browsing History:</strong> We do not track your web browsing activity, tabs, or visited URLs.</li>
-        <li><strong>No Device Identifiers:</strong> We do not collect IP addresses, device fingerprints, MAC addresses, or hardware telemetry.</li>
-        <li><strong>No Analytics or Tracking Scripts:</strong> MapsPulse contains zero third-party telemetry libraries (no Google Analytics, Mixpanel, Sentry, or tracking beacons).</li>
+        <li><strong>Personally Identifiable Contact Information:</strong> Business names, contact persons, telephone/mobile numbers, physical street addresses, and website links entered manually or imported via CSV.</li>
+        <li><strong>CRM Workflow Annotations:</strong> Pipeline stage tags (New, Contacted, Follow-Up, Closed), priority levels, and custom follow-up notes.</li>
+        <li><strong>Optional Navigation Links:</strong> Stored purely as passive reference URLs without reading or extracting the destination web page.</li>
+      </ul>
+      <h3 style="margin-top: 14px;">Categories We Do NOT Collect or Handle</h3>
+      <ul>
+        <li><strong>No Authentication Credentials:</strong> We never access or store passwords, Google logins, session tokens, or authentication cookies.</li>
+        <li><strong>No Financial or Payment Information:</strong> We never collect, process, or store credit card numbers, bank accounts, or financial transaction data.</li>
+        <li><strong>No Browsing History or Page Monitoring:</strong> MapsPulse contains zero content scripts and cannot inspect your web navigation or search history.</li>
+        <li><strong>No Third-Party Website Scraping:</strong> MapsPulse does not extract or copy content from Google Maps or any external web page.</li>
       </ul>
     </div>
 
     <!-- SECTION 3 -->
     <div class="card">
-      <h2>3. Information Handled by MapsPulse</h2>
+      <h2>3. Data Lifecycle &amp; Storage Architecture</h2>
       <p>
-        MapsPulse stores only the <strong>user-provided business contact details</strong> that you explicitly enter or import via CSV:
+        MapsPulse operates strictly on a local-first paradigm. All records remain sandboxed on your personal device:
       </p>
-      <ul>
-        <li><strong>Business / Contact Name:</strong> Entered manually by user or imported from authorized user spreadsheets.</li>
-        <li><strong>Category / Industry:</strong> User-defined category (e.g., "Dental Clinic", "Contractor").</li>
-        <li><strong>Contact Number:</strong> Phone number entered or imported by user.</li>
-        <li><strong>Website:</strong> Direct website URL entered or imported by user.</li>
-        <li><strong>Physical Address:</strong> Street address or city entered or imported by user.</li>
-        <li><strong>Optional Navigation Link:</strong> Stored purely as a passive user-provided URL without reading or extracting the linked page.</li>
-        <li><strong>CRM Annotations:</strong> Pipeline stage (New, Contacted, Follow-Up, Closed), priority rating, and custom notes.</li>
-      </ul>
-        <li><strong>User CRM Annotations:</strong> Status tag (New, Contacted, Follow-Up, Closed) and custom notes you create.</li>
-      </ul>
 
-      <h3>Data Lifecycle</h3>
       <table>
         <thead>
           <tr>
             <th>Lifecycle Stage</th>
-            <th>Storage Mechanism</th>
-            <th>Retention Period</th>
+            <th>Implementation &amp; Storage</th>
+            <th>External Transmission</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>In-Memory Curation</strong></td>
-            <td>Client-side JavaScript heap</td>
-            <td>Discarded immediately upon tab navigation or closure.</td>
+            <td><strong>Data Storage</strong></td>
+            <td>Persisted exclusively in browser local storage (<code>chrome.storage.local</code>). Sync disabled.</td>
+            <td><strong>0 bytes transmitted.</strong> Never synced to external clouds.</td>
           </tr>
           <tr>
-            <td><strong>Local Storage Retention</strong></td>
-            <td>Browser isolated storage (<code>chrome.storage.local</code>)</td>
-            <td>Retained locally until you click "Clear History" or remove the extension.</td>
+            <td><strong>Data Processing</strong></td>
+            <td>In-memory client-side JavaScript handles normalization, duplicate checks, and search filtering.</td>
+            <td><strong>0 bytes transmitted.</strong> Processed 100% locally on your CPU.</td>
           </tr>
           <tr>
-            <td><strong>User-Initiated Export</strong></td>
-            <td>Local file download (<code>.csv</code>, <code>.tsv</code>, <code>.json</code>)</td>
-            <td>Saved directly to your local file system under your complete control.</td>
+            <td><strong>Data Export</strong></td>
+            <td>Generated client-side via native Blob API (<code>.csv</code> with Excel BOM, <code>.tsv</code>, <code>.json</code>).</td>
+            <td><strong>0 bytes transmitted.</strong> Saved directly to your local file system.</td>
           </tr>
           <tr>
-            <td><strong>External Transmission</strong></td>
-            <td>None</td>
-            <td><strong>0 bytes transmitted.</strong> Zero outbound network connections.</td>
+            <td><strong>Data Deletion</strong></td>
+            <td>Delete individual contact cards or purge all records via the in-app "Clear All" button.</td>
+            <td><strong>0 bytes transmitted.</strong> Uninstalling permanently wipes local storage.</td>
+          </tr>
+          <tr>
+            <td><strong>Data Sharing</strong></td>
+            <td>None. We do not sell, rent, monetize, or transfer your records to any third party or advertiser.</td>
+            <td><strong>0 bytes transmitted.</strong> Zero third-party integrations.</td>
           </tr>
         </tbody>
       </table>
@@ -281,13 +278,18 @@
     <div class="card">
       <h2>4. Permissions Justification</h2>
       <ul>
-        <li><code>storage</code>: Required solely to save your bookmarked places, CRM pipeline status tags, and export history locally on your personal device without remote transmission.</li>
+        <li><code>storage</code>: Required solely to save your contact records, CRM pipeline stages, notes, and application settings locally on your personal device without external transmission.</li>
       </ul>
     </div>
 
     <!-- SECTION 5 -->
     <div class="card">
       <h2>5. User Data Control &amp; Deletion</h2>
+      <ul>
+        <li><strong>Clear All Records:</strong> Click the "Clear All Saved Contacts" button in the extension popup to instantly and permanently erase all saved contact records from your device.</li>
+        <li><strong>Permanent Erasure:</strong> Uninstalling MapsPulse from Google Chrome (<code>chrome://extensions</code>) immediately and permanently purges all sandboxed local storage entries.</li>
+      </ul>
+    </div>
       <ul>
         <li><strong>Clear History:</strong> Click the "Clear" button in the extension popup to instantly delete all saved place records.</li>
         <li><strong>Permanent Erasure:</strong> Uninstalling MapsPulse from Chrome (<code>chrome://extensions</code>) immediately and permanently purges all local storage entries.</li>
