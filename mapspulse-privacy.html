@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy — MapsPulse Chrome Extension</title>
+  <title>Privacy Policy — MapsPulse Local Business Organizer &amp; CRM</title>
   <style>
     :root {
       --bg: #0f172a;
@@ -61,7 +61,7 @@
     }
 
     h1 {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 800;
       margin-bottom: 8px;
       color: #fff;
@@ -96,7 +96,7 @@
     }
 
     h2 {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 700;
       color: #fff;
       margin-bottom: 14px;
@@ -108,7 +108,7 @@
     }
 
     h3 {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--accent-light);
       margin: 16px 0 8px 0;
@@ -137,23 +137,6 @@
       padding: 14px 16px;
       border-radius: 0 8px 8px 0;
       margin: 16px 0;
-    }
-
-    .warning-box {
-      background: rgba(245, 158, 11, 0.08);
-      border-left: 4px solid var(--warning);
-      padding: 14px 16px;
-      border-radius: 0 8px 8px 0;
-      margin: 16px 0;
-    }
-
-    .placeholder {
-      background: rgba(245, 158, 11, 0.2);
-      color: #fde68a;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: monospace;
-      font-weight: 600;
     }
 
     table {
@@ -188,9 +171,16 @@
       margin-top: 32px;
     }
 
+    .disclaimer {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 12px;
+      line-height: 1.4;
+    }
+
     @media (max-width: 640px) {
       body { padding: 16px 12px; }
-      h1 { font-size: 24px; }
+      h1 { font-size: 22px; }
       .card { padding: 18px 14px; }
     }
   </style>
@@ -200,12 +190,12 @@
     
     <header>
       <div class="badge">Official Privacy Policy</div>
-      <h1>MapsPulse: Google Maps Lead Exporter &amp; CRM</h1>
-      <div class="subtitle">Manifest V3 Chrome Extension — Version 26.2.0</div>
+      <h1>MapsPulse — Local Business Organizer &amp; CRM</h1>
+      <div class="subtitle">Manifest V3 Browser Extension — Version 28.0.0</div>
       <div class="meta-box">
-        <div class="meta-item">Effective Date: <strong>October 13, 2026</strong></div>
+        <div class="meta-item">Effective Date: <strong>November 3, 2026</strong></div>
         <div class="meta-item">Architecture: <strong>100% Local-First</strong></div>
-        <div class="meta-item">Developer Contact: <span class="placeholder">[INSERT_DEVELOPER_EMAIL_OR_CONTACT]</span></div>
+        <div class="meta-item">Support Contact: <strong>prashant.bodake1@gmail.com</strong></div>
       </div>
     </header>
 
@@ -213,11 +203,11 @@
     <div class="card">
       <h2>1. Overview &amp; Single Purpose</h2>
       <p>
-        MapsPulse is a specialized productivity browser extension designed for Google Chrome with a single, clear purpose: 
-        <strong>to allow users to extract publicly displayed business contact information from Google Maps search results in user-navigated tabs and export them into structured CSV spreadsheets or clipboard formats.</strong>
+        MapsPulse is a specialized productivity browser extension for Chrome designed with a single, transparent purpose:
+        <strong>to allow users to bookmark, tag, and organize local business place records visited on Maps into a private local CRM workspace and export them into structured spreadsheet formats (CSV, TSV, JSON).</strong>
       </p>
       <div class="highlight-box">
-        <p><strong>Core Architectural Principle:</strong> MapsPulse operates on a <strong>strict local-first architecture</strong>. All DOM analysis, lead extraction, deduplication, and file generation take place entirely inside your local browser memory and sandbox. <strong>No data is transmitted to external servers or third-party cloud infrastructure.</strong></p>
+        <p><strong>Strict Local-First Architecture:</strong> MapsPulse operates 100% locally on your machine. All place organization, deduplication, notes management, and spreadsheet file generations happen entirely within your local browser sandbox. <strong>Zero data is transmitted to external servers, cloud databases, or third-party networks.</strong></p>
       </div>
     </div>
 
@@ -227,33 +217,31 @@
       <p>MapsPulse does not access, collect, track, or transmit any user personal data:</p>
       <ul>
         <li><strong>No Personal Identifiers:</strong> We do not collect your name, email address, home address, or phone number.</li>
-        <li><strong>No Google Account Credentials:</strong> We do not inspect, access, or store your Google login, passwords, session tokens, or authentication cookies.</li>
-        <li><strong>No User Browsing History:</strong> We do not track your web browsing activity, tabs, or visited URLs outside of the specific Google Maps tab you actively choose to scrape.</li>
-        <li><strong>No Device Identifiers:</strong> We do not collect your IP address, device fingerprints, MAC address, or hardware telemetry.</li>
-        <li><strong>No Analytics or Tracking Scripts:</strong> MapsPulse contains zero third-party telemetry libraries (no Google Analytics, Mixpanel, Sentry, or trackers).</li>
+        <li><strong>No Google Account Credentials:</strong> We do not access or store your Google login, passwords, session tokens, or authentication cookies.</li>
+        <li><strong>No Browsing History:</strong> We do not track your web browsing activity, tabs, or visited URLs.</li>
+        <li><strong>No Device Identifiers:</strong> We do not collect IP addresses, device fingerprints, MAC addresses, or hardware telemetry.</li>
+        <li><strong>No Analytics or Tracking Scripts:</strong> MapsPulse contains zero third-party telemetry libraries (no Google Analytics, Mixpanel, Sentry, or tracking beacons).</li>
       </ul>
     </div>
 
     <!-- SECTION 3 -->
     <div class="card">
-      <h2>3. Information Processed by MapsPulse</h2>
+      <h2>3. Information Handled by MapsPulse</h2>
       <p>
-        While MapsPulse collects zero personal user data, it processes <strong>publicly displayed website content</strong> from Google Maps tabs when initiated by the user:
+        MapsPulse processes only the <strong>public business place details</strong> that you explicitly choose to bookmark or save:
       </p>
-
-      <h3>3.1 Public Business Information Processed</h3>
       <ul>
-        <li><strong>Business Name:</strong> As rendered on the public listing.</li>
-        <li><strong>Category / Industry:</strong> Public business category (e.g., "Dental clinic", "Plumber").</li>
-        <li><strong>Public Phone Number:</strong> Cleaned and formatted contact number.</li>
-        <li><strong>Public Website Link:</strong> Direct business website URL (tracking redirects unwrapped).</li>
+        <li><strong>Business Name:</strong> As publicly rendered on the selected place card.</li>
+        <li><strong>Category / Industry:</strong> Public business category (e.g., "Dental clinic", "Electrician").</li>
+        <li><strong>Contact Number:</strong> Cleaned public telephone number.</li>
+        <li><strong>Website:</strong> Public direct website link.</li>
         <li><strong>Star Rating &amp; Review Count:</strong> Public consumer rating and review volume.</li>
-        <li><strong>Street Address:</strong> Public geographic location as listed on the card.</li>
-        <li><strong>Google Maps Listing URL:</strong> Direct permanent link to the place on Google Maps.</li>
-        <li><strong>Search Query String:</strong> User's current search keywords (e.g., "dentists in Pune") used to label export files.</li>
+        <li><strong>Street Address:</strong> Public geographic location.</li>
+        <li><strong>Hours &amp; Price Level:</strong> Public operating schedule and price tier.</li>
+        <li><strong>User CRM Annotations:</strong> Status tag (New, Contacted, Follow-Up, Closed) and custom notes you create.</li>
       </ul>
 
-      <h3>3.2 Processing Stages</h3>
+      <h3>Data Lifecycle</h3>
       <table>
         <thead>
           <tr>
@@ -264,24 +252,24 @@
         </thead>
         <tbody>
           <tr>
-            <td><strong>In-Memory Processing</strong></td>
-            <td>Client-side JavaScript heap (<code>Map</code> and <code>WeakSet</code>)</td>
+            <td><strong>In-Memory Curation</strong></td>
+            <td>Client-side JavaScript heap</td>
             <td>Discarded immediately upon tab navigation or closure.</td>
           </tr>
           <tr>
             <td><strong>Local Storage Retention</strong></td>
-            <td>Chrome isolated storage (<code>chrome.storage.local</code>)</td>
-            <td>Retains up to 50 recent export batch summaries (query, count, timestamp, and 5-item preview). Deleted when history is cleared or extension is removed.</td>
+            <td>Browser isolated storage (<code>chrome.storage.local</code>)</td>
+            <td>Retained locally until you click "Clear History" or remove the extension.</td>
           </tr>
           <tr>
             <td><strong>User-Initiated Export</strong></td>
-            <td>Local file download (<code>.csv</code>) or system clipboard (<code>TSV</code>)</td>
-            <td>Stored directly on your device under your complete control.</td>
+            <td>Local file download (<code>.csv</code>, <code>.tsv</code>, <code>.json</code>)</td>
+            <td>Saved directly to your local file system under your complete control.</td>
           </tr>
           <tr>
             <td><strong>External Transmission</strong></td>
             <td>None</td>
-            <td><strong>0 bytes transmitted.</strong> Zero outbound network calls.</td>
+            <td><strong>0 bytes transmitted.</strong> Zero outbound network connections.</td>
           </tr>
         </tbody>
       </table>
@@ -289,47 +277,33 @@
 
     <!-- SECTION 4 -->
     <div class="card">
-      <h2>4. Third-Party Disclosures &amp; Remote Code</h2>
+      <h2>4. Permissions Justification</h2>
       <ul>
-        <li><strong>Zero Remote Calls:</strong> Audited with exactly 0 outbound HTTP/HTTPS requests (<code>fetch: 0</code>, <code>XMLHttpRequest: 0</code>, <code>WebSocket: 0</code>, <code>sendBeacon: 0</code>).</li>
-        <li><strong>No Third-Party Data Sharing:</strong> We do not sell, rent, monetize, or transfer any data to third parties, advertising networks, or data brokers.</li>
-        <li><strong>No Remote Code:</strong> Fully compliant with Manifest V3. All scripts are packaged locally within the extension bundle; no external JavaScript is ever evaluated at runtime.</li>
+        <li><code>storage</code>: Required solely to save your bookmarked places, CRM pipeline status tags, and export history locally on your personal device without remote transmission.</li>
       </ul>
     </div>
 
     <!-- SECTION 5 -->
     <div class="card">
       <h2>5. User Data Control &amp; Deletion</h2>
-      <p>You have full autonomy over all local data managed by MapsPulse:</p>
       <ul>
-        <li><strong>Clear History:</strong> Click the "Clear History" button in the extension popup to instantly delete all saved export batch records and scraped counters from your device.</li>
-        <li><strong>Permanent Erasure:</strong> Removing or uninstalling MapsPulse from Google Chrome (<code>chrome://extensions</code>) immediately and permanently purges all local storage entries.</li>
+        <li><strong>Clear History:</strong> Click the "Clear" button in the extension popup to instantly delete all saved place records.</li>
+        <li><strong>Permanent Erasure:</strong> Uninstalling MapsPulse from Chrome (<code>chrome://extensions</code>) immediately and permanently purges all local storage entries.</li>
       </ul>
     </div>
 
     <!-- SECTION 6 -->
     <div class="card">
-      <h2>6. Chrome Web Store User Data &amp; Limited Use Compliance</h2>
-      <p>
-        MapsPulse complies strictly with the <a href="https://developer.chrome.com/docs/webstore/user-data-policy/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-light);">Chrome Web Store User Data Policy</a>, including the <strong>Limited Use</strong> requirements (subject to verification):
-      </p>
-      <ol>
-        <li>MapsPulse processes Google Maps website content exclusively to provide and improve its user-facing single purpose of exporting public business leads.</li>
-        <li>We do not transfer user or website data to third parties.</li>
-        <li>We do not use or transfer user or website data for personalized, retargeted, or interest-based advertising.</li>
-        <li>We do not permit humans to read processed data.</li>
-      </ol>
-    </div>
-
-    <!-- SECTION 7 -->
-    <div class="card">
-      <h2>7. Developer Contact &amp; Publication Notices</h2>
-      <p>If you have any questions or feedback regarding this Privacy Policy, please contact:</p>
+      <h2>6. Developer Contact &amp; Legal Notices</h2>
+      <p>For questions or support regarding MapsPulse, contact:</p>
       <ul>
-        <li><strong>Publisher / Developer:</strong> <span class="placeholder">[INSERT_DEVELOPER_NAME_OR_ENTITY]</span></li>
-        <li><strong>Support Email:</strong> <span class="placeholder">[INSERT_DEVELOPER_EMAIL_OR_CONTACT]</span></li>
-        <li><strong>Published Policy URL:</strong> <a href="https://prashant3244.github.io/mapspulse-privacy.html" style="color: var(--accent-light);">https://prashant3244.github.io/mapspulse-privacy.html</a></li>
+        <li><strong>Developer:</strong> Prashant Bodake / NamdevOS</li>
+        <li><strong>Support Email:</strong> prashant.bodake1@gmail.com</li>
+        <li><strong>Source Code &amp; Documentation:</strong> <a href="https://github.com/Prashant3244/mapspulse-extension" target="_blank" rel="noopener noreferrer" style="color: var(--accent-light);">https://github.com/Prashant3244/mapspulse-extension</a></li>
       </ul>
+      <div class="disclaimer">
+        Google Maps™ is a trademark of Google LLC. MapsPulse is an independent software tool and is not affiliated with, sponsored by, or endorsed by Google LLC.
+      </div>
     </div>
 
     <footer>
