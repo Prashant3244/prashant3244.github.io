@@ -191,10 +191,10 @@
     <header>
       <div class="badge">Official Privacy Policy</div>
       <h1>MapsPulse — Local Business Organizer &amp; CRM</h1>
-      <div class="subtitle">Manifest V3 Browser Extension — Version 28.0.0</div>
+      <div class="subtitle">Manifest V3 Browser Extension — Version 28.0.1</div>
       <div class="meta-box">
         <div class="meta-item">Effective Date: <strong>November 3, 2026</strong></div>
-        <div class="meta-item">Architecture: <strong>100% Local-First</strong></div>
+        <div class="meta-item">Architecture: <strong>100% Local-First (Standalone Popup)</strong></div>
         <div class="meta-item">Support Contact: <strong>prashant.bodake1@gmail.com</strong></div>
       </div>
     </header>
@@ -203,19 +203,20 @@
     <div class="card">
       <h2>1. Overview &amp; Single Purpose</h2>
       <p>
-        MapsPulse is a specialized productivity browser extension for Chrome designed with a single, transparent purpose:
-        <strong>to allow users to bookmark, tag, and organize local business place records visited on Maps into a private local CRM workspace and export them into structured spreadsheet formats (CSV, TSV, JSON).</strong>
+        MapsPulse is an independent productivity browser extension for Chrome designed with a single, transparent purpose:
+        <strong>to provide a private, local business organizer and CRM companion allowing users to manage business contacts, track pipeline stages, import spreadsheets, and export local data backups.</strong>
       </p>
       <div class="highlight-box">
-        <p><strong>Strict Local-First Architecture:</strong> MapsPulse operates 100% locally on your machine. All place organization, deduplication, notes management, and spreadsheet file generations happen entirely within your local browser sandbox. <strong>Zero data is transmitted to external servers, cloud databases, or third-party networks.</strong></p>
+        <p><strong>Zero Web Page Access &amp; Strict Local-First Architecture:</strong> MapsPulse operates as a standalone popup within its own isolated extension environment. It does not read, scrape, or extract content from any third-party website or web page. All contact management, notes, deduplication, and spreadsheet exports happen entirely within your local browser sandbox. <strong>Zero data is transmitted to external servers, cloud databases, or third-party networks.</strong></p>
       </div>
     </div>
 
     <!-- SECTION 2 -->
     <div class="card">
       <h2>2. What We Do NOT Collect</h2>
-      <p>MapsPulse does not access, collect, track, or transmit any user personal data:</p>
+      <p>MapsPulse does not access, collect, track, or transmit any user personal data or website content:</p>
       <ul>
+        <li><strong>No Third-Party Website Scraping:</strong> MapsPulse contains zero content scripts and does not read, copy, or monitor any web pages or search engines.</li>
         <li><strong>No Personal Identifiers:</strong> We do not collect your name, email address, home address, or phone number.</li>
         <li><strong>No Google Account Credentials:</strong> We do not access or store your Google login, passwords, session tokens, or authentication cookies.</li>
         <li><strong>No Browsing History:</strong> We do not track your web browsing activity, tabs, or visited URLs.</li>
@@ -228,16 +229,17 @@
     <div class="card">
       <h2>3. Information Handled by MapsPulse</h2>
       <p>
-        MapsPulse processes only the <strong>public business place details</strong> that you explicitly choose to bookmark or save:
+        MapsPulse stores only the <strong>user-provided business contact details</strong> that you explicitly enter or import via CSV:
       </p>
       <ul>
-        <li><strong>Business Name:</strong> As publicly rendered on the selected place card.</li>
-        <li><strong>Category / Industry:</strong> Public business category (e.g., "Dental clinic", "Electrician").</li>
-        <li><strong>Contact Number:</strong> Cleaned public telephone number.</li>
-        <li><strong>Website:</strong> Public direct website link.</li>
-        <li><strong>Star Rating &amp; Review Count:</strong> Public consumer rating and review volume.</li>
-        <li><strong>Street Address:</strong> Public geographic location.</li>
-        <li><strong>Hours &amp; Price Level:</strong> Public operating schedule and price tier.</li>
+        <li><strong>Business / Contact Name:</strong> Entered manually by user or imported from authorized user spreadsheets.</li>
+        <li><strong>Category / Industry:</strong> User-defined category (e.g., "Dental Clinic", "Contractor").</li>
+        <li><strong>Contact Number:</strong> Phone number entered or imported by user.</li>
+        <li><strong>Website:</strong> Direct website URL entered or imported by user.</li>
+        <li><strong>Physical Address:</strong> Street address or city entered or imported by user.</li>
+        <li><strong>Optional Navigation Link:</strong> Stored purely as a passive user-provided URL without reading or extracting the linked page.</li>
+        <li><strong>CRM Annotations:</strong> Pipeline stage (New, Contacted, Follow-Up, Closed), priority rating, and custom notes.</li>
+      </ul>
         <li><strong>User CRM Annotations:</strong> Status tag (New, Contacted, Follow-Up, Closed) and custom notes you create.</li>
       </ul>
 
