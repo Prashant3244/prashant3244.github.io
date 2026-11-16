@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to ArbitragePulse Pro | Quick-Start Guide</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --card-border: #1e293b;
+      --emerald: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.2);
+      --cyan: #38bdf8;
+      --amber: #f59e0b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 0 16px 40px;
+    }
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      padding: 32px 0 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 32px;
+    }
+    .brand-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #1e293b;
+      padding: 6px;
+      box-shadow: 0 0 20px var(--emerald-glow);
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 6px auto 0;
+    }
+
+    /* Steps Grid */
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .step-num {
+      background: var(--emerald);
+      color: #042f2e;
+      font-weight: 900;
+      font-size: 14px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .step-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* Pinning Visual Box */
+    .pin-box {
+      background: #1e293b;
+      border: 1px dashed #334155;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .pin-icon-wrap {
+      font-size: 28px;
+      background: #0f172a;
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #334155;
+    }
+    .pin-instructions {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .pin-instructions strong {
+      color: var(--emerald);
+    }
+
+    /* Live Amazon Test Buttons */
+    .test-links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .test-link-btn {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 12px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .test-link-btn:hover {
+      background: #273549;
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+    }
+    .test-link-icon {
+      font-size: 20px;
+    }
+
+    /* Launch Promo Offer */
+    .promo-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.1));
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    .promo-badge {
+      background: var(--amber);
+      color: #78350f;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .promo-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .promo-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 16px;
+    }
+    .promo-code-box {
+      font-family: monospace;
+      font-size: 14px;
+      font-weight: 700;
+      background: #0f172a;
+      border: 1px dashed var(--emerald);
+      color: var(--cyan);
+      padding: 6px 14px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+    .cta-buttons-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-btn-ltd {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 14px;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+      transition: all 0.2s;
+    }
+    .cta-btn-ltd:hover {
+      opacity: 0.95;
+      transform: translateY(-2px);
+    }
+    .cta-btn-sub {
+      background: linear-gradient(135deg, #10b981, #06b6d4);
+      color: #042f2e;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .cta-btn-sub:hover {
+      opacity: 0.95;
+      transform: translateY(-2px);
+    }
+
+    /* Trust Footer */
+    .trust-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 36px;
+      font-size: 12px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand-wrap">
+        <img class="brand-icon" src="icons/icon48.png" alt="ArbitragePulse Logo" />
+        <h1>ArbitragePulse Pro</h1>
+      </div>
+      <p class="subtitle">Your real-time Amazon FBA Profit Calculator & Reverse Sourcing Sentinel is ready to use.</p>
+    </header>
+
+    <!-- STEP 1: PIN EXTENSION -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div class="step-title">Pin ArbitragePulse to Your Chrome Toolbar</div>
+      </div>
+      <p class="step-desc">Chrome automatically hides new extensions behind the puzzle piece. Pin ArbitragePulse to access 1-click deal calculations anytime:</p>
+      <div class="pin-box">
+        <div class="pin-icon-wrap">🧩</div>
+        <div class="pin-instructions">
+          1. Click the <strong>Puzzle Piece icon (🧩)</strong> in top-right Chrome.<br>
+          2. Locate <strong>ArbitragePulse</strong> in the list.<br>
+          3. Click the <strong>Pin icon (📌)</strong> so the ArbitragePulse logo is always visible.
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: TEST ON LIVE AMAZON -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div class="step-title">Try It on a Live Amazon Product Right Now</div>
+      </div>
+      <p class="step-desc">Open any product page below. The ArbitragePulse floating HUD will automatically slide out with real-time FBA Pick & Pack fees, referral fees, and break-even pricing:</p>
+      <div class="test-links-grid">
+        <a class="test-link-btn" href="https://www.amazon.com/dp/B08HW1325K" target="_blank" rel="noopener">
+          <span class="test-link-icon">🧸</span>
+          <div>
+            <div>LEGO Flower Set</div>
+            <small style="color: var(--text-muted); font-size: 11px;">Toy Arbitrage</small>
+          </div>
+        </a>
+        <a class="test-link-btn" href="https://www.amazon.com/dp/B08N5KB1M5" target="_blank" rel="noopener">
+          <span class="test-link-icon">👟</span>
+          <div>
+            <div>Nike Men's Sneakers</div>
+            <small style="color: var(--text-muted); font-size: 11px;">Apparel Arbitrage</small>
+          </div>
+        </a>
+        <a class="test-link-btn" href="https://www.amazon.com/dp/B0D1XD1ZV3" target="_blank" rel="noopener">
+          <span class="test-link-icon">🎧</span>
+          <div>
+            <div>Apple AirPods Pro</div>
+            <small style="color: var(--text-muted); font-size: 11px;">Electronics Comps</small>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- STEP 3: 1-CLICK REVERSE SOURCING -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div class="step-title">1-Click Reverse Sourcing (Find $20–$50 Flips)</div>
+      </div>
+      <p class="step-desc">On any Amazon or Walmart product page, look at the bottom of the ArbitragePulse card for the <strong>🔍 1-Click Reverse Sourcing</strong> buttons:</p>
+      <div style="background: #1e293b; padding: 14px; border-radius: 8px; font-size: 13px; color: #cbd5e1; line-height: 1.6;">
+        • Click <strong>eBay Sold Comps</strong> to see actual real historical sales prices.<br>
+        • Click <strong>Walmart / Flipkart</strong> to find retail clearance price gaps.<br>
+        • Click <strong>Save Deal</strong> to build your daily sourcing inventory tracker.
+      </div>
+    </div>
+
+    <!-- EXCLUSIVE WELCOME PROMO -->
+    <div class="promo-banner">
+      <span class="promo-badge">🎉 Special Welcome Gift</span>
+      <h2 class="promo-title">Lock in 20% OFF ArbitragePulse Pro</h2>
+      <p class="promo-desc">Scale your Amazon FBA sourcing with unlimited daily scans, instant BSR sales velocity, and 1-click CSV deal export.</p>
+      <div class="promo-code-box">Coupon: PRO20 (Applied at Checkout)</div>
+      <div class="cta-buttons-row">
+        <a class="cta-btn-ltd" href="https://prashant3244.github.io/checkout-arbitrage.html?ref=welcome&plan=lifetime" target="_blank">
+          ⚡ Get $29 Lifetime Deal
+        </a>
+        <a class="cta-btn-sub" href="https://prashant3244.github.io/checkout-arbitrage.html?ref=welcome&plan=monthly" target="_blank">
+          ⚡ Subscribe for $4.99 / mo
+        </a>
+      </div>
+      <div class="trust-row">
+        <span>🛡️ Powered by Paddle (PCI-DSS)</span>
+        <span>•</span>
+        <span>💰 14-Day Money-Back Guarantee</span>
+        <span>•</span>
+        <span>⚡ Instant Chrome Activation</span>
+      </div>
+    </div>
+
+    <footer>
+      ArbitragePulse Pro v26.17.0 • Built for Retail Arbitrage & Amazon FBA Resellers
+    </footer>
+  </div>
+</body>
+</html>
