@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SheetPulse Pro - Instant Web Table to CSV &amp; Excel Exporter Checkout</title>
+  <meta name="description" content="Secure Paddle Checkout for SheetPulse Pro. Extract, clean, and export unlimited web tables into CSV, TSV, JSON, and Excel.">
+  <!-- Paddle.js v2 CDN -->
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --emerald: #10b981;
+      --emerald-dark: #042f2e;
+      --cyan: #06b6d4;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+    .container { max-width: 760px; margin: 0 auto; padding: 20px; width: 100%; flex: 1; }
+    
+    header { padding: 20px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 20px; font-weight: 800; color: var(--emerald); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; margin-left: 20px; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero { text-align: center; padding: 36px 0 24px; }
+    .badge { background: rgba(16, 185, 129, 0.15); color: var(--emerald); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-block; margin-bottom: 12px; border: 1px solid rgba(16, 185, 129, 0.3); }
+    h1 { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+    .hero p { font-size: 15px; color: var(--text-muted); max-width: 580px; margin: 0 auto; }
+
+    /* Success State */
+    #success-box { display: none; background: rgba(16, 185, 129, 0.1); border: 2px solid var(--emerald); border-radius: 12px; padding: 25px; margin: 20px auto 30px; text-align: center; }
+    #success-box h2 { color: var(--emerald); font-size: 22px; margin-bottom: 8px; }
+    .order-id-display { font-family: monospace; font-size: 18px; background: #000; padding: 12px 16px; border-radius: 6px; border: 1px dashed var(--emerald); color: var(--cyan); margin: 15px 0; word-break: break-all; }
+
+    /* Plan Switcher */
+    .plan-switch-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .plan-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .plan-btn.active {
+      background: var(--emerald-dark);
+      border-color: var(--emerald);
+      color: #fff;
+    }
+
+    /* Single Dedicated Plan Card */
+    .checkout-card { background: var(--card-bg); border: 2px solid var(--emerald); border-radius: 16px; padding: 36px 30px; margin: 10px auto; max-width: 540px; box-shadow: 0 10px 40px rgba(16, 185, 129, 0.08); position: relative; }
+    .plan-badge { position: absolute; top: -13px; right: 24px; background: var(--emerald); color: var(--emerald-dark); font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .plan-title { font-size: 24px; font-weight: 800; margin-bottom: 6px; color: #fff; }
+    .plan-price { font-size: 44px; font-weight: 800; color: var(--cyan); margin: 12px 0 6px; }
+    .plan-price span { font-size: 16px; color: var(--text-muted); font-weight: 500; }
+    .plan-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 22px; line-height: 1.5; }
+    .plan-features { list-style: none; margin-bottom: 28px; }
+    .plan-features li { padding: 8px 0; font-size: 14px; color: #e2e8f0; display: flex; align-items: center; gap: 8px; }
+    .plan-features li::before { content: "✓"; color: var(--emerald); font-weight: 900; }
+
+    .btn-checkout { background: linear-gradient(135deg, var(--emerald), var(--cyan)); color: #fff; padding: 16px 24px; border-radius: 8px; font-weight: 800; font-size: 16px; text-decoration: none; border: none; cursor: pointer; text-align: center; width: 100%; transition: opacity 0.2s, transform 0.2s; display: block; }
+    .btn-checkout:hover { opacity: 0.95; transform: translateY(-1px); }
+
+    .btn-fallback { display: block; text-align: center; margin-top: 14px; font-size: 12px; color: var(--text-muted); text-decoration: underline; background: none; border: none; cursor: pointer; width: 100%; }
+    .btn-fallback:hover { color: var(--cyan); }
+
+    /* Trust & Policies */
+    .trust-footer { margin-top: 40px; padding: 22px; background: rgba(17, 24, 39, 0.6); border-radius: 12px; border: 1px solid var(--border); text-align: center; font-size: 13px; color: var(--text-muted); }
+    .trust-badges { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 10px; font-weight: 600; color: var(--text); font-size: 13px; }
+    
+    footer { padding: 30px 0; text-align: center; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <a href="index.html" class="logo">⚡ SheetPulse Pro</a>
+      <div class="nav-links">
+        <a href="mailto:prashant.bodake1@gmail.com">Direct Support</a>
+      </div>
+    </header>
+
+    <div class="hero">
+      <div class="badge">SECURE PADDLE CHECKOUT</div>
+      <h1>Unlock SheetPulse Pro</h1>
+      <p>Instant automated activation, unlimited rows per export, multi-page crawling, and 14-day refund guarantee.</p>
+    </div>
+
+    <!-- Order Completed / Auto-Activation Banner -->
+    <div id="success-box">
+      <h2>🎉 Payment Confirmed!</h2>
+      <p style="color:var(--text-muted); font-size:14px;">Your SheetPulse Pro access is active. Copy your Paddle Order / Transaction ID below:</p>
+      <div style="display: flex; gap: 8px; justify-content: center; align-items: center; margin: 15px 0;">
+        <div class="order-id-display" id="order-id-text" style="margin: 0; flex: 1;">Loading ID...</div>
+        <button id="btn-copy-order-id" onclick="copyOrderId()" style="background: var(--emerald); color: #000; border: none; padding: 12px 18px; border-radius: 6px; font-weight: 700; font-size: 14px; cursor: pointer;">📋 Copy ID</button>
+      </div>
+      <div id="activation-status-msg" style="margin-top: 10px; display: none;"></div>
+      <p id="activation-instruction-msg" style="font-size:13px; color:var(--text-muted); line-height:1.5;">
+        👉 Open your SheetPulse Extension popup ➔ paste into <strong>"Enter Paddle Order ID"</strong> and click <strong>Activate</strong>!
+      </p>
+    </div>
+
+    <!-- Plan Switcher -->
+    <div class="plan-switch-container">
+      <button id="btn-plan-lifetime" class="plan-btn active" onclick="selectPlan('lifetime')">⚡ Early Bird Lifetime ($24)</button>
+      <button id="btn-plan-monthly" class="plan-btn" onclick="selectPlan('monthly')">Monthly Plan ($4.99/mo)</button>
+    </div>
+
+    <!-- Early Bird Discount Banner -->
+    <div style="background: linear-gradient(90deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15)); border: 1px solid var(--emerald); border-radius: 10px; padding: 12px 16px; margin: 0 auto 24px; max-width: 540px; text-align: center;">
+      <span style="color: #34d399; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">🔥 Limited-Time Launch Offer:</span>
+      <span style="font-size: 13px; color: #f9fafb; margin-left: 6px;">Enter coupon <strong style="background: rgba(0,0,0,0.5); padding: 2px 7px; border-radius: 4px; color: #67e8f9; border: 1px dashed #06b6d4; font-family: monospace;">PRO20</strong> for <span style="color:#34d399; font-weight: 700;">20% OFF</span> at checkout!</span>
+    </div>
+
+    <!-- Single Dedicated Plan Card -->
+    <div class="checkout-card" id="card-sheetpulse">
+      <div class="plan-badge" id="plan-badge">EARLY BIRD LTD</div>
+      <div class="plan-title" id="plan-title">SheetPulse Pro Lifetime</div>
+      <div class="plan-desc" id="plan-desc">Pay once, own forever. Unlock unlimited web table extraction, multi-page crawling, and Excel export without recurring fees.</div>
+      <div class="plan-price" id="plan-price">$24 <span>one-time payment</span></div>
+      
+      <ul class="plan-features">
+        <li>Unlimited rows per export (Free tier has 100 row ceiling)</li>
+        <li>Multi-Page Auto-Pagination (automatically crawls "Next" pages into 1 clean file)</li>
+        <li>Native Microsoft Excel XML (.xlsx/.xls) export with bold headers &amp; column styles</li>
+        <li>Automated Data Cleaner (split full names, clean currency symbols, normalize dates)</li>
+        <li>1-Click TSV clipboard copy for instant Google Sheets &amp; Notion paste</li>
+        <li>100% In-Browser Local Processing (zero data sent to third-party servers)</li>
+        <li>14-day 100% money-back guarantee with zero questions asked</li>
+      </ul>
+
+      <button id="btn-pay-paddle" class="btn-checkout" onclick="startPaddleCheckout()">
+        ⚡ Get SheetPulse Lifetime ($24)
+      </button>
+
+      <button id="btn-retry" class="btn-fallback" onclick="startPaddleCheckout()">
+        Trouble opening checkout? Click here to retry
+      </button>
+    </div>
+
+    <!-- Trust & Guarantee -->
+    <div class="trust-footer">
+      <div class="trust-badges">
+        <span>🔒 256-bit SSL Encryption</span>
+        <span>🛡️ Merchant of Record: Paddle.com</span>
+        <span>💰 14-Day Money-Back Guarantee</span>
+        <span>⚡ Instant Activation</span>
+      </div>
+      <p>Payments are securely processed by Paddle.com Market Ltd (UK). You can cancel anytime without questions.</p>
+    </div>
+
+    <footer>
+      <p>© 2026 SheetPulse Pro. Developer Support: <a href="mailto:prashant.bodake1@gmail.com" style="color:var(--emerald);">prashant.bodake1@gmail.com</a></p>
+    </footer>
+  </div>
+
+  <script>
+    // Live Paddle Client-Side Token & Price IDs
+    const PADDLE_TOKEN = 'live_828ae5ae41898b49618cac77f4e';
+    const MONTHLY_PRICE_ID = 'pri_01m48qe0sqbnnn36kwyrdx10xx';
+    const LIFETIME_PRICE_ID = 'pri_01m5maskrwp0ks1bzfet7p654p';
+    const VERIFICATION_ENDPOINT = 'https://73pdnyhiz4jymx3lonevxxvmdq0cnmtc.lambda-url.us-east-1.on.aws/v1/entitlements/verify';
+
+    let currentPlan = 'lifetime';
+    let paddleInitialized = false;
+
+    function selectPlan(plan) {
+      currentPlan = plan;
+      const btnLife = document.getElementById('btn-plan-lifetime');
+      const btnMonth = document.getElementById('btn-plan-monthly');
+      const badge = document.getElementById('plan-badge');
+      const title = document.getElementById('plan-title');
+      const desc = document.getElementById('plan-desc');
+      const price = document.getElementById('plan-price');
+      const btnPay = document.getElementById('btn-pay-paddle');
+
+      if (plan === 'lifetime') {
+        btnLife.classList.add('active');
+        btnMonth.classList.remove('active');
+        badge.innerText = 'EARLY BIRD LTD';
+        title.innerText = 'SheetPulse Pro Lifetime';
+        desc.innerText = 'Pay once, own forever. Unlock unlimited web table extraction, multi-page crawling, and Excel export without recurring fees.';
+        price.innerHTML = '$24 <span>one-time payment</span>';
+        btnPay.innerText = '⚡ Get SheetPulse Lifetime ($24)';
+      } else {
+        btnMonth.classList.add('active');
+        btnLife.classList.remove('active');
+        badge.innerText = 'PRO MONTHLY';
+        title.innerText = 'SheetPulse Pro Monthly';
+        desc.innerText = 'Flexible monthly subscription for power users, market researchers, and data analysts. Cancel anytime with 1 click.';
+        price.innerHTML = '$4.99 <span>/ month</span>';
+        btnPay.innerText = '⚡ Subscribe to SheetPulse ($4.99/mo)';
+      }
+    }
+
+    // Initialize Paddle.js v2
+    function setupPaddle() {
+      if (typeof Paddle !== 'undefined' && !paddleInitialized) {
+        try {
+          Paddle.Initialize({
+            token: PADDLE_TOKEN,
+            eventCallback: function(event) {
+              console.log('[Paddle Event]', event);
+              if (event && (event.name === 'checkout.completed' || event.name === 'checkout.payment_successful')) {
+                const data = event.data || {};
+                const orderId = data.transaction_id || data.id || 'Active-' + Date.now();
+                showOrderSuccess(orderId);
+              }
+            }
+          });
+          paddleInitialized = true;
+        } catch (err) {
+          console.warn('Paddle initialization notice:', err);
+        }
+      }
+    }
+
+    function startPaddleCheckout() {
+      setupPaddle();
+      if (typeof Paddle === 'undefined') {
+        alert('Paddle payment engine is still loading. Please check your internet connection or try again in a moment.');
+        return;
+      }
+      const priceId = (currentPlan === 'lifetime') ? LIFETIME_PRICE_ID : MONTHLY_PRICE_ID;
+      try {
+        Paddle.Checkout.open({
+          items: [{ priceId: priceId, quantity: 1 }]
+        });
+      } catch (err) {
+        console.error('Paddle open error:', err);
+        alert('Error launching checkout: ' + err.message);
+      }
+    }
+
+    async function showOrderSuccess(orderId) {
+      const box = document.getElementById('success-box');
+      const text = document.getElementById('order-id-text');
+      if (box && text) {
+        text.innerText = orderId;
+        box.style.display = 'block';
+        box.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // 1. Verify with live AWS Cloud gateway
+      try {
+        const vResp = await fetch(VERIFICATION_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ orderId: orderId })
+        });
+        const vData = await vResp.json();
+        console.log('[SheetPulse] Live AWS Gateway Verification:', vData);
+      } catch (e) {
+        console.warn('[SheetPulse] Gateway pre-verification note:', e);
+      }
+    }
+
+    function copyOrderId() {
+      const text = document.getElementById('order-id-text')?.innerText || '';
+      if (text && text !== 'Loading ID...') {
+        navigator.clipboard.writeText(text);
+        const btn = document.getElementById('btn-copy-order-id');
+        if (btn) {
+          btn.innerText = '✅ Copied!';
+          setTimeout(() => { btn.innerText = '📋 Copy ID'; }, 2000);
+        }
+      }
+    }
+
+    // Auto-init on load and read URL parameter
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const planParam = params.get('plan');
+      if (planParam === 'monthly') {
+        selectPlan('monthly');
+      } else {
+        selectPlan('lifetime');
+      }
+
+      setupPaddle();
+    });
+  </script>
+</body>
+</html>
